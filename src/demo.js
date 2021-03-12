@@ -1,0 +1,68 @@
+
+
+export const demo = [
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+	{
+		id: Date.now(),
+		title: "Silicon cowboys",
+		img: require("./assets/test.jpg"),
+		cast: [{ name: "Mike" }, { name: "Jerry" }],
+		rating: "",
+		year: "2018",
+	},
+];
