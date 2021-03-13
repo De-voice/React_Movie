@@ -1,36 +1,40 @@
 import axios from "axios";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { FETCH_FAILED, FETCH_INIT, FETCH_ITEMS } from "../actions";
+import { useContext, useEffect } from "react";
+import { FETCH_FAILED, FETCH_INIT, FETCH_ITEMS, FETCH_SERIES } from "../actions";
 import { reqInstance } from "../api/request/req";
 import { ApplicationContext } from "../App";
 
-function useFetch(pageNumber) {
-	const [hasMore, setHasMore] = useState(false);
+function useFetch(pageNumber, endpoint,dispatchType) {
 	const [state, dispatch] = useContext(ApplicationContext);
-	// const getMovies = useCallback(() => {}, [dispatch, pageNumber]);
+let actionType = "";
+
+	if(dispatchType === "movies"){
+        actionType = FETCH_ITEMS;
+	};
+	if(dispatchType === "series"){
+		actionType = FETCH_SERIES;
+	};
 
 	useEffect(() => {
-        let cancle;
+		let cancle;
 		dispatch({ type: FETCH_INIT });
 		reqInstance
-			.get(`/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`,
-				{ params: { page: pageNumber },
-                cancelToken:new axios.CancelToken(c => cancle = c)
-             }
-                
-			)
+			.get(endpoint, {
+				params: { page: pageNumber },
+				cancelToken: new axios.CancelToken((c) => (cancle = c)),
+			})
 			.then((res) => {
-				dispatch({ type: FETCH_ITEMS, payload: res.data.results });
-				setHasMore(res.data.results.length > 0);
+				// console.log(res);
+				dispatch({ type: actionType, payload: res.data.results });
 			})
 			.catch((err) => {
 				dispatch({ type: FETCH_FAILED, payload: err });
 				console.log(err);
 			});
-            return () => cancle()
-	}, [dispatch,pageNumber]);
+		return () => cancle();
+	}, [dispatch, pageNumber, endpoint,actionType]);
 
-	return { state, hasMore };
+	return;
 }
 
 export default useFetch;

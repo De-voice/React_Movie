@@ -1,39 +1,28 @@
 import React from "react";
-import PropTypes from "prop-types"
+import { useRouteMatch, Link } from "react-router-dom"
+import PropTypes from "prop-types";
 
+function Card({ src, title, lastElementRef, lastRef, vote_average, id }) {
 
-function Card({ title, src, alt, year, rating, children, lastElementRef }) {
+	const match = useRouteMatch();
 	return (
-		<>
-			<div className="relative movie" ref={lastElementRef}>
-				<img
-					src={src}
-					alt={alt}
-					className="w-full  sm:w-36 sm:h-56 mt-3 "
-					style={{ objectFit: "cover" }}
-				/>
-				<div className="back  w-full sm:w-36 sm:h-56 sm:m-0   hidden   bg-white top-0 absolute">
-					<div className="flex flex-col items-center mt-10">
-						<h1 className="text-black">{title}</h1>
+		<div ref={lastRef && lastElementRef} className="shadow-2xl">
+			<Link to={`${match.url}/${id}`}>
+				<img src={src} alt={title} className="w-44" />
+			</Link>
 
-						<div className="mt-4">
-							{children}
-							<span className="text-black ml-2">{year}</span>
-						</div>
-						<span className="text-black">{rating}</span>
-					</div>
-				</div>
-			</div>
-		</>
+			<h1>{vote_average}</h1>
+			<Link to={`${match.url}/${id}`}>{title}</Link>
+			<h4 className="text-white">WatchList</h4>
+		</div>
 	);
 }
 
 Card.propTypes = {
+	src: PropTypes.string.isRequired,
+	alt: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	year: PropTypes.string.isRequired,
-	rating: PropTypes.number.isRequired,
-	src:PropTypes.string.isRequired,
-	alt:PropTypes.string.isRequired,
+	vote_average: PropTypes.number.isRequired,
+	id:PropTypes.any.isRequired,
 };
-
 export default Card;

@@ -1,67 +1,77 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useRef, useContext, useState, useCallback } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { ApplicationContext } from "../App";
-import { FETCH_INIT, FETCH_FAILED, FETCH_SERIES } from "../actions";
-import { reqInstance } from "../api/request/req";
 import Card from "../Components/Card/Card";
-import Icon from "../Components/Icons/Icon";
 import Loader from "../Components/Loader/Loader";
+import useFetch from "./useFetch";
 
 function SeriesList() {
 	const [state, dispatch] = useContext(ApplicationContext);
-	const { series, isLoading, isError } = state;
+	const { series, isLoading, isError, hasMore } = state;
+	const [pageNumber, setPageNumber] = useState(1);
 
-	console.log({ series });
-	const getSeries = useCallback(() => {
-		dispatch({ type: FETCH_INIT });
-		reqInstance
-			.get(
-				`/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
-			)
-			.then((res) => {
-				console.log(res);
-				dispatch({ type: FETCH_SERIES, payload: res.data.results });
-			})
-			.catch((err) => {
-				//  console.log(err.);
-				dispatch({ type: FETCH_FAILED, payload: err });
+	const actionType = "series";
+	const end_point = `/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+
+	// custom hook that perform a network req
+	useFetch(pageNumber, end_point, actionType);
+
+	// const match = useRouteMatch();
+
+
+	const observer = useRef();
+
+	const lastElementRef = useCallback(
+		(node) => {
+			if (isLoading) return;
+			if (observer.current) observer.current.disconnect();
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting && hasMore) {
+					console.log('hello');
+					setPageNumber((prePageNumber) => (prePageNumber = prePageNumber + 1));
+				}
 			});
-	}, [dispatch]);
+			if (node) observer.current.observe(node);
+		},
+		[hasMore, isLoading]
+	);
 
-	useEffect(() => {
-		getSeries();
-	}, [getSeries]);
-
-	const match = useRouteMatch();
-
-	const SeriesListComponent = series.map((item) => {
-		const { name, poster_path, vote_average, first_air_date } = item;
-		return (
-			<Link
-				to={`${match.url}/${item.id}`}
-				key={item.id}
-				className="cursor-default">
+	const SeriesListComponent = series.map((item, index) => {
+		const { name, poster_path, vote_average, id } = item;
+		
+		if (series.length === index +1) {
+			return (
 				<Card
+					id={id}
+					key={item.id}
+					lastElementRef={lastElementRef}
+					lastRef
 					title={name}
-					year={first_air_date}
-					rating={vote_average}
+					vote_average={vote_average}
 					alt={name}
-					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
-					<Icon
-						className="fas fa-heart cursor-pointer text-black"
-						onClick={() => console.log(item.id)}
-					/>
-				</Card>
-			</Link>
-		);
+					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}></Card>
+			);
+		} else {
+			return (
+				<Card
+					id={id}
+					key={item.id}
+					title={name}
+					vote_average={vote_average}
+					alt={name}
+					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}></Card>
+			);
+		}
 	});
 
 	return (
-		<div className=" text-center">
+		
 			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-7 gap-x-1  ">
-				{isLoading ? <Loader /> : <> {SeriesListComponent} </>}
+				{isLoading && <Loader />}
+				{isError && "Error"}
+				{!isLoading || !isError ? SeriesListComponent : null}
 			</div>
-		</div>
+		
 	);
 }
 

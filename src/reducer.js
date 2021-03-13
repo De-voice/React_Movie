@@ -16,12 +16,15 @@ export const initialState = {
 	favourite: JSON.parse(localStorage.getItem("FavouriteList")) || [],
 	message: "",
 	isInFavourite: false,
-	isLoading: false,
+	hasMore:false,
+	isLoading: true,
 	isError: false,
 	error: {},
 	movieDetails: null,
 	seriesDetails: null,
 };
+
+// `/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 
 export const reducer = (state, action) => {
 	switch (action.type) {
@@ -40,14 +43,15 @@ export const reducer = (state, action) => {
 		case FETCH_ITEMS:
 			return {
 				...state,
-				movies: action.payload,
+				movies: [...state.movies,...action.payload],
+				hasMore: action.payload.length > 0,
 				isLoading: false,
 				isError: false,
 			};
 		case FETCH_SERIES:
 			return {
 				...state,
-				series: action.payload,
+				series: [...state.series, ...action.payload],
 				isLoading: false,
 				isError: false,
 			};
@@ -84,3 +88,7 @@ export const reducer = (state, action) => {
 			return state;
 	}
 };
+
+
+	// className="w-full  sm:w-36 sm:h-56 mt-3 "
+	// 				style={{ objectFit: "cover" }}
