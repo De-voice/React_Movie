@@ -24,7 +24,6 @@ let actionType = "";
 				cancelToken: new axios.CancelToken((c) => (cancle = c)),
 			})
 			.then((res) => {
-				// console.log(res);
 				dispatch({ type: actionType, payload: res.data.results });
 			})
 			.catch((err) => {

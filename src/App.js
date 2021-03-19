@@ -1,5 +1,5 @@
-import React, { createContext, useReducer } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { createContext, useReducer,useEffect } from "react";
+import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import { reducer, initialState } from "./reducer";
 import NavBar from "./Components/Nav/NavBar";
 import Movie from "./pages/Movie";
@@ -8,15 +8,37 @@ import NotFound from "./pages/NotFound";
 import SingleMovie from "./pages/SingleMovie";
 import SingleSeries from "./pages/SingleSeries"
 import Favourite from "./pages/Favourite";
+import { TOGGLE_FAVOURITE } from "./actions";
 
 export const ApplicationContext = createContext(null);
 
-function App() {
+const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const match = useRouteMatch();
+
+	// console.log(match)
+	
+	
+
+
+	
+
+	
+
+
+	
+	/*
+	 add to favourite
+	 toggle between add and remove from favourite
+	*/
+	const toggleWatchList = (selectedItem) => {
+		dispatch({ type: TOGGLE_FAVOURITE, payload: selectedItem });
+	};
 
 	return (
 		<div className="w-full h-screen bg-white  ">
-			<ApplicationContext.Provider value={[state, dispatch]}>
+			<ApplicationContext.Provider value={[state, dispatch, toggleWatchList]}>
 				<NavBar />
 				<Switch>
 					<Route exact path="/">

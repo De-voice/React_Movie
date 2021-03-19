@@ -16,17 +16,16 @@ function FavouriteList() {
 	
 
 	const FavouriteListComponent = state.favourite.map((item) => {
-		const { title, vote_average, poster_path, release_date } = item;
+		const { title, vote_average, poster_path } = item;
 
 		// console.log(item);
 		return (
 			<Card
 				key={item.id}
 				title={title}
-				rating={vote_average}
+				vote_average={vote_average}
 				alt={title}
 				src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-				year={release_date}
 			/>
 		);
 	});

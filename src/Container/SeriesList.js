@@ -4,9 +4,10 @@ import { ApplicationContext } from "../App";
 import Card from "../Components/Card/Card";
 import Loader from "../Components/Loader/Loader";
 import useFetch from "./useFetch";
+import useInfinitScroll from "./useInfinitScroll";
 
 function SeriesList() {
-	const [state, dispatch] = useContext(ApplicationContext);
+	const [state, dispatch, toggleWatchList] = useContext(ApplicationContext);
 	const { series, isLoading, isError, hasMore } = state;
 	const [pageNumber, setPageNumber] = useState(1);
 
@@ -16,30 +17,13 @@ function SeriesList() {
 	// custom hook that perform a network req
 	useFetch(pageNumber, end_point, actionType);
 
-	// const match = useRouteMatch();
-
-
-	const observer = useRef();
-
-	const lastElementRef = useCallback(
-		(node) => {
-			if (isLoading) return;
-			if (observer.current) observer.current.disconnect();
-			observer.current = new IntersectionObserver((entries) => {
-				if (entries[0].isIntersecting && hasMore) {
-					console.log('hello');
-					setPageNumber((prePageNumber) => (prePageNumber = prePageNumber + 1));
-				}
-			});
-			if (node) observer.current.observe(node);
-		},
-		[hasMore, isLoading]
-	);
+	// infint scroll
+	const [ lastElementRef] = useInfinitScroll(isLoading, hasMore, setPageNumber);
 
 	const SeriesListComponent = series.map((item, index) => {
 		const { name, poster_path, vote_average, id } = item;
-		
-		if (series.length === index +1) {
+
+		if (series.length === index + 1) {
 			return (
 				<Card
 					id={id}
@@ -49,7 +33,13 @@ function SeriesList() {
 					title={name}
 					vote_average={vote_average}
 					alt={name}
-					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}></Card>
+					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
+					<span
+						className="text-blue-500 cursor-pointer"
+						onClick={() => toggleWatchList(item)}>
+						WatchList
+					</span>
+				</Card>
 			);
 		} else {
 			return (
@@ -59,19 +49,23 @@ function SeriesList() {
 					title={name}
 					vote_average={vote_average}
 					alt={name}
-					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}></Card>
+					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
+					<span
+						className="text-blue-500 cursor-pointer"
+						onClick={() => toggleWatchList(item)}>
+						WatchList
+					</span>
+				</Card>
 			);
 		}
 	});
 
 	return (
-		
-			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-7 gap-x-1  ">
-				{isLoading && <Loader />}
-				{isError && "Error"}
-				{!isLoading || !isError ? SeriesListComponent : null}
-			</div>
-		
+		<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-7 gap-x-1  ">
+			{isLoading && <Loader />}
+			{isError && "Error"}
+			{!isLoading || !isError ? SeriesListComponent : null}
+		</div>
 	);
 }
 

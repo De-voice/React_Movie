@@ -6,7 +6,10 @@ import {
 	FETCH_SERIES,
 	FETCH_SINGLE_MOVIE_DETAILS,
 	FETCH_SINGLE_SERIES_DETAILS,
+	SEARCH_MOVIES,
+	SEARCH_SERIES,
 	SET_INPUT,
+	TOGGLE_FAVOURITE,
 } from "./actions";
 
 export const initialState = {
@@ -17,7 +20,7 @@ export const initialState = {
 	message: "",
 	isInFavourite: false,
 	hasMore:false,
-	isLoading: true,
+	isLoading: false,
 	isError: false,
 	error: {},
 	movieDetails: null,
@@ -77,18 +80,38 @@ export const reducer = (state, action) => {
 				isError: false,
 				isLoading: false,
 			};
-		case ADD_TO_FAVOURITE:
+		case TOGGLE_FAVOURITE:
+			const newList = [...state.favourite];
+			const itemIndex = newList.findIndex((item) => item.id === action.payload.id);
+				if (itemIndex > -1) {
+					newList.splice(itemIndex, 1);
+				} else {
+					newList.push(action.payload);
+				}
 			return {
 				...state,
-				favourite: [...state.favourite, action.payload],
+				favourite: newList,
 				message: "added to favourite",
 			};
 
+			case SEARCH_MOVIES:
+				return {
+					...state,
+					movies:  action.payload,
+					hasMore: action.payload.length > 0,
+					isLoading: false,
+					isError: false,
+				};
+            case SEARCH_SERIES:
+				return {
+					...state,
+					series: action.payload,
+					hasMore: action.payload.length > 0,
+					isLoading: false,
+					isError: false,
+				};
 		default:
 			return state;
 	}
 };
 
-
-	// className="w-full  sm:w-36 sm:h-56 mt-3 "
-	// 				style={{ objectFit: "cover" }}
