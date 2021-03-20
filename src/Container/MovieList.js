@@ -25,7 +25,7 @@ function MovieList() {
 	useFetch(pageNumber, end_point, actionType);
 	// infint scroll
 	const [lastElementRef] = useInfinitScroll(isLoading, hasMore, setPageNumber);
-
+console.log(movies);
 
 	const MovieListComponent = movies.map((item, index) => {
 		const { title, vote_average, poster_path, id } = item;

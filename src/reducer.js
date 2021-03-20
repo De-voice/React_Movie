@@ -1,6 +1,7 @@
 import {
 	ADD_TO_FAVOURITE,
 	FETCH_FAILED,
+	FETCH_HOMEMOVIE,
 	FETCH_INIT,
 	FETCH_ITEMS,
 	FETCH_SERIES,
@@ -14,6 +15,7 @@ import {
 
 export const initialState = {
 	setInput: "",
+	homeMovie:[],
 	movies: [],
 	series: [],
 	favourite: JSON.parse(localStorage.getItem("FavouriteList")) || [],
@@ -107,6 +109,13 @@ export const reducer = (state, action) => {
 					...state,
 					series: action.payload,
 					hasMore: action.payload.length > 0,
+					isLoading: false,
+					isError: false,
+				};
+			case FETCH_HOMEMOVIE:
+				return {
+					...state,
+					homeMovie: [...state.homeMovie, ...action.payload],
 					isLoading: false,
 					isError: false,
 				};

@@ -9,25 +9,14 @@ import SingleMovie from "./pages/SingleMovie";
 import SingleSeries from "./pages/SingleSeries"
 import Favourite from "./pages/Favourite";
 import { TOGGLE_FAVOURITE } from "./actions";
+import Home from "./pages/Home";
 
 export const ApplicationContext = createContext(null);
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const match = useRouteMatch();
 
-	// console.log(match)
-	
-	
-
-
-	
-
-	
-
-
-	
 	/*
 	 add to favourite
 	 toggle between add and remove from favourite
@@ -42,7 +31,7 @@ const App = () => {
 				<NavBar />
 				<Switch>
 					<Route exact path="/">
-						<h1 className="text-black">Welcome home</h1>
+						<Home/>
 					</Route>
 					<Route exact path="/movie">
 						<Movie />

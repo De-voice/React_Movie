@@ -16,10 +16,10 @@ function SearchBar() {
 	};
 	const { setInput } = state;
 
-	const match = useRouteMatch();
+	
 	const location = useLocation();
 	let history = useHistory();
-// https://api.themoviedb.org/3/search/tv?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
+
 	const handleSearch = useCallback(() => {
 		const path = location.pathname;
 		const chars = path.split("/");
