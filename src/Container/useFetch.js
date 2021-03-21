@@ -1,19 +1,25 @@
 import axios from "axios";
 import { useContext, useEffect } from "react";
-import { FETCH_FAILED, FETCH_INIT, FETCH_ITEMS, FETCH_SERIES } from "../actions";
+import { FETCH_FAILED, FETCH_HOMEMOVIE, FETCH_INIT, FETCH_ITEMS, FETCH_SERIES, FETCH_TO_RATED } from "../actions";
 import { reqInstance } from "../api/request/req";
 import { ApplicationContext } from "../App";
 
-function useFetch(pageNumber, endpoint,dispatchType) {
+function useFetch(pageNumber, endpoint, dispatchType) {
 	const [state, dispatch] = useContext(ApplicationContext);
-let actionType = "";
+	let actionType = "";
 
-	if(dispatchType === "movies"){
-        actionType = FETCH_ITEMS;
-	};
-	if(dispatchType === "series"){
+	if (dispatchType === "home") {
+		actionType = FETCH_HOMEMOVIE;
+	}
+	if (dispatchType === "to_rated") {
+		actionType = FETCH_TO_RATED;
+	}
+	if (dispatchType === "movies") {
+		actionType = FETCH_ITEMS;
+	}
+	if (dispatchType === "series") {
 		actionType = FETCH_SERIES;
-	};
+	}
 
 	useEffect(() => {
 		let cancle;
@@ -31,7 +37,7 @@ let actionType = "";
 				console.log(err);
 			});
 		return () => cancle();
-	}, [dispatch, pageNumber, endpoint,actionType]);
+	}, [dispatch, pageNumber, endpoint, actionType]);
 
 	return;
 }

@@ -7,9 +7,9 @@ function Loader() {
 
 const Skeleton = () => {
 	return (
-		<div className="border border-light-blue-300 shadow mt-20 rounded-md p-4 w-56">
+		<div className="shadow mt-20  p-4 w-56">
 			<div className="animate-pulse flex justify-center">
-				<div className=" bg-white rounded w-56  h-56"></div>
+				<div className=" bg-gray-300 w-56  h-56"></div>
 			</div>
 		</div>
 	);

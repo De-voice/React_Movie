@@ -7,6 +7,7 @@ import {
 	FETCH_SERIES,
 	FETCH_SINGLE_MOVIE_DETAILS,
 	FETCH_SINGLE_SERIES_DETAILS,
+	FETCH_TO_RATED,
 	SEARCH_MOVIES,
 	SEARCH_SERIES,
 	SET_INPUT,
@@ -15,13 +16,14 @@ import {
 
 export const initialState = {
 	setInput: "",
-	homeMovie:[],
+	homeMovie: [],
+	ToRatedList: [],
 	movies: [],
 	series: [],
 	favourite: JSON.parse(localStorage.getItem("FavouriteList")) || [],
 	message: "",
 	isInFavourite: false,
-	hasMore:false,
+	hasMore: false,
 	isLoading: false,
 	isError: false,
 	error: {},
@@ -48,7 +50,7 @@ export const reducer = (state, action) => {
 		case FETCH_ITEMS:
 			return {
 				...state,
-				movies: [...state.movies,...action.payload],
+				movies: [...state.movies, ...action.payload],
 				hasMore: action.payload.length > 0,
 				isLoading: false,
 				isError: false,
@@ -84,41 +86,51 @@ export const reducer = (state, action) => {
 			};
 		case TOGGLE_FAVOURITE:
 			const newList = [...state.favourite];
-			const itemIndex = newList.findIndex((item) => item.id === action.payload.id);
-				if (itemIndex > -1) {
-					newList.splice(itemIndex, 1);
-				} else {
-					newList.push(action.payload);
-				}
+			const itemIndex = newList.findIndex(
+				(item) => item.id === action.payload.id
+			);
+			if (itemIndex > -1) {
+				newList.splice(itemIndex, 1);
+			} else {
+				newList.push(action.payload);
+			}
 			return {
 				...state,
 				favourite: newList,
 				message: "added to favourite",
 			};
 
-			case SEARCH_MOVIES:
-				return {
-					...state,
-					movies:  action.payload,
-					hasMore: action.payload.length > 0,
-					isLoading: false,
-					isError: false,
-				};
-            case SEARCH_SERIES:
-				return {
-					...state,
-					series: action.payload,
-					hasMore: action.payload.length > 0,
-					isLoading: false,
-					isError: false,
-				};
-			case FETCH_HOMEMOVIE:
-				return {
-					...state,
-					homeMovie: [...state.homeMovie, ...action.payload],
-					isLoading: false,
-					isError: false,
-				};
+		case SEARCH_MOVIES:
+			return {
+				...state,
+				movies: action.payload,
+				hasMore: action.payload.length > 0,
+				isLoading: false,
+				isError: false,
+			};
+		case SEARCH_SERIES:
+			return {
+				...state,
+				series: action.payload,
+				hasMore: action.payload.length > 0,
+				isLoading: false,
+				isError: false,
+			};
+		case FETCH_HOMEMOVIE:
+			return {
+				...state,
+				homeMovie: [...state.homeMovie, ...action.payload],
+				isLoading: false,
+				isError: false,
+			};
+
+		case FETCH_TO_RATED:
+			return {
+				...state,
+				ToRatedList: [...state.homeMovie, ...action.payload],
+				isLoading: false,
+				isError: false,
+			};
 		default:
 			return state;
 	}

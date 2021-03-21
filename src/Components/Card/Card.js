@@ -6,7 +6,8 @@ function Card({ src, title, lastElementRef, lastRef, vote_average, id,children }
 	const match = useRouteMatch();
 	return (
 		<div ref={lastRef && lastElementRef} className="">
-			<Link  to={`${match.url}/${id}`}>
+			{children}
+			<Link to={`${match.url}/${id}`}>
 				<img src={src} alt={title} className="w-56" />
 			</Link>
 
@@ -26,9 +27,7 @@ function Card({ src, title, lastElementRef, lastRef, vote_average, id,children }
 				{vote_average}
 			</span>
 			<Link to={`${match.url}/${id}`}>{title}</Link>
-			<div className="mt-4 text-center flex text-blue-500">
-				{children}
-			</div>
+			<div className="mt-4 text-center flex text-blue-500">{children}</div>
 		</div>
 	);
 }

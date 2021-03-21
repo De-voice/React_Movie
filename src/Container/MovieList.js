@@ -25,7 +25,7 @@ function MovieList() {
 	useFetch(pageNumber, end_point, actionType);
 	// infint scroll
 	const [lastElementRef] = useInfinitScroll(isLoading, hasMore, setPageNumber);
-console.log(movies);
+// console.log(movies);
 
 	const MovieListComponent = movies.map((item, index) => {
 		const { title, vote_average, poster_path, id } = item;
@@ -40,6 +40,7 @@ console.log(movies);
 					title={title}
 					vote_average={vote_average}
 					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
+						
 					<span
 						className="text-blue-500 cursor-pointer"
 						onClick={() => toggleWatchList(item)}>
@@ -79,7 +80,7 @@ console.log(movies);
 	});
 
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-7 gap-x-1 gap-y-1">
+		<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-5 lg:grid-cols-7 gap-x-1 gap-y-1">
 			{!isLoading || !isError ? MovieListComponent : null}
 			{ isLoading && <Loader />}
 			{ isError && "Error"}

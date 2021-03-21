@@ -1,16 +1,15 @@
-.horizontal_slider {
-   background-color: red;
+.horizontal {
    display: block;
    width: 100%;
    overflow-x: scroll;
    box-sizing: border-box ;
 }
 
-.horizontal_slider::-webkit-scrollbar{
+.horizontal::-webkit-scrollbar{
     display: none;
 }
 
-.horizontal_slider{
+.horizontal{
     -ms-overflow-style: none;
 }
 .slider_container {

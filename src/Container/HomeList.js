@@ -1,42 +1,62 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FETCH_HOMEMOVIE } from '../actions';
 import { reqInstance } from '../api/request/req';
 import { ApplicationContext } from '../App';
+import useFetch from './useFetch';
+import useInfinitScroll from './useInfinitScroll';
 
 function HomeList() {
     	
 	const [state, dispatch] = useContext(ApplicationContext);
 
-	useEffect(() => {
-		reqInstance.get(`/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`)
-			.then((res) => {
-				// console.log(res);
-				dispatch({ type: FETCH_HOMEMOVIE, payload: res.data.results });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, [dispatch]);
+	const [pageNumber, setPageNumber] = useState(1);
+	const end_point = `/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+   const actionType = "home";
 
-	const HomeComponent = state.homeMovie.map((item) => {
-		console.log(item);
-		return (
+const { homeMovie, isLoading, isError, hasMore } = state;
+
+// custom hook that perform a network req
+   useFetch(pageNumber, end_point, actionType);
+//    console.log(homeMovie,"home");
+// infint scroll
+const [lastElementRef] = useInfinitScroll( isLoading, hasMore, setPageNumber);
+
+
+		const HomeComponent = state.homeMovie.map((item, index) => {
+			if (homeMovie.length === index + 1) {
+				return (
+					<div className="item" ref={lastElementRef} key={item.id}>
+						<img
+							className="w-44 object-cover"
+							src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+							alt=""
+						/>
+						<h1 className="text-white text-center">{item.title}</h1>
+					</div>
+				);
+			} else {
+				return (
+					<div className="item" key={item.id}>
+						<img
+							className="w-44 object-cover"
+							src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+							alt=""
+						/>
+						<h1 className="text-white text-center">{item.title}</h1>
+					</div>
+				);
+			}
+			
+		});
+
+    return (
 			<>
-				<img
-					src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-					alt=""
-				/>
-				<h1 className="text-black">{item.title}</h1>
+				
+				{!isLoading || !isError ? HomeComponent : null}
+				{isLoading && <h1>Loading...</h1>}
+				{isError && "Error"}
 			</>
 		);
-
-
-	});
-    return (
-        <div>
-            {HomeComponent}
-        </div>
-    )
 }
 
 export default HomeList
