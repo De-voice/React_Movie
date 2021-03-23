@@ -7,6 +7,7 @@ import React, {
 import {TOGGLE_FAVOURITE } from "../actions";
 import { ApplicationContext } from "../App";
 import Card from "../Components/Card/Card";
+import Svg from "../Components/Icons/Svg";
 import Loader from "../Components/Loader/Loader";
 import useFetch from "./useFetch";
 import useInfinitScroll from "./useInfinitScroll";
@@ -29,6 +30,10 @@ function MovieList() {
 
 	const MovieListComponent = movies.map((item, index) => {
 		const { title, vote_average, poster_path, id } = item;
+		const uniqueId = Date.now() + id;
+		const newId = [...new Set([uniqueId])];
+
+		
 		if (movies.length === index + 1) {
 			return (
 				<Card
@@ -36,13 +41,12 @@ function MovieList() {
 					lastElementRef={lastElementRef}
 					lastRef
 					alt={title}
-					key={index}
+					key={newId}
 					title={title}
 					vote_average={vote_average}
 					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
-						
 					<span
-						className="text-blue-500 cursor-pointer"
+						className="text-blue-500 cursor-pointer hover:text-white"
 						onClick={() => toggleWatchList(item)}>
 						WatchList
 					</span>
@@ -53,22 +57,21 @@ function MovieList() {
 				<Card
 					id={id}
 					alt={title}
-					key={index}
+					key={newId}
 					title={title}
 					vote_average={vote_average}
 					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
-					<svg
+					<Svg
+						xmlns="http://www.w3.org/2000/svg"
 						className="w-5 h-5"
 						fill="blue"
 						stroke="currentColor"
 						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg">
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-					</svg>
+						strokeLinejoin="round"
+						strokeLinecap="round"
+						strokeWidth="2"
+						d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+					/>
 					<span
 						className="text-blue-500 cursor-pointer"
 						onClick={() => toggleWatchList(item)}>

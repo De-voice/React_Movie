@@ -14,7 +14,7 @@ function useInfinitScroll(isLoading,hasMore,setPageNumber) {
 					);
 				}
 			});
-			console.log(node,"node");
+			// console.log(node,"node");
 			if (node) observer.current.observe(node);
 		},
 		[isLoading, hasMore,setPageNumber]

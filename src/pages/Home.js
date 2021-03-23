@@ -25,17 +25,21 @@ function Home() {
 			<div
 				style={{ paddingTop: "125px", paddingBottom: "7px" }}
 				className="bg-gray-800">
-				<h1 className="text-blue-500 mt-3">Latest Movies</h1>
+				<h1 className="text-blue-500 mt-3 font-bold text-lg mx-2">
+					Latest Movies
+				</h1>
 				<div className="horizontal block box-border w-full overflow-x-scroll mt-7">
-					<div className="slider_container">
+					<div className="block whitespace-nowrap">
 						<HomeList />
 					</div>
 				</div>
 
-				<h1 className="mt-10 text-blue-500">Top Rated Movies</h1>
+				<h1 className="mt-10 text-blue-500 font-bold text-lg mx-2">
+					Top Rated Movies
+				</h1>
 				<div className="horizontal mt-7">
-					<div className="slider_container">
-						<ToRatedList/>
+					<div className="block whitespace-nowrap">
+						<ToRatedList />
 					</div>
 				</div>
 			</div>

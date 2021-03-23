@@ -127,7 +127,7 @@ export const reducer = (state, action) => {
 		case FETCH_TO_RATED:
 			return {
 				...state,
-				ToRatedList: [...state.homeMovie, ...action.payload],
+				ToRatedList: [...state.ToRatedList, ...action.payload],
 				isLoading: false,
 				isError: false,
 			};

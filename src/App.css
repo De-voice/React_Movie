@@ -20,4 +20,11 @@
 .item {
    display: inline-block;
    margin-right: 15px;
+   /* transition: transform 0.2s; */
+   
 }
+/* 
+.item:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+} */
