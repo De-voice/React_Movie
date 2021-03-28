@@ -11,11 +11,11 @@ function TopBar1() {
 			<div className="sm:w-36 w-20 mr-2">
 				<img className="w-full" src={logo} alt="" />
 			</div>
-			<div className="">
+			<div >
 				<SearchBar />
 			</div>
 			<Link to="/favourite">
-				<Icon className="fas fa-heart " />
+				<Icon className="fas fa-heart  text-white" />
 			</Link>
 		</div>
 	);

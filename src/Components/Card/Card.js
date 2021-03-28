@@ -9,8 +9,8 @@ function Card({ src, title, lastElementRef, lastRef, vote_average, id,children }
 	return (
 		<div
 			ref={lastRef && lastElementRef}
-			className="transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110 mx-2 my-2">
-			<Link to={`${match.url}/${id}`} className="test">
+			className="transition duration-500  ease-in-out  transform hover:-translate-y-1 hover:scale-110 mx-2 my-2">
+			<Link to={`${match.url}/${id}`} >
 				<img src={src} alt={title} className="w-56" />
 			</Link>
 
@@ -31,7 +31,7 @@ function Card({ src, title, lastElementRef, lastRef, vote_average, id,children }
 			<Link to={`${match.url}/${id}`} className="text-white text-sm">
 				{title}
 			</Link>
-			<div className="mt-4 text-center flex text-blue-500">{children}</div>
+			<div className="mt-4 text-center flex  ">{children}</div>
 		</div>
 	);
 }

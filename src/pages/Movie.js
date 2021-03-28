@@ -6,7 +6,7 @@ function Movie() {
     return (
 			<div
 				style={{ paddingTop: "120px", paddingBottom: "7px" }}
-				className="bg-gray-800 overflow-x-hidden">
+				className=" overflow-x-hidden">
 				<MovieList />
 			</div>
 		);

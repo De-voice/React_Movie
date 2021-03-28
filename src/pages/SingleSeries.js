@@ -20,8 +20,6 @@ function SingleSeries() {
 
 
 
-	console.log(state.seriesDetails);
-
 	return (
 		<div style={{ paddingTop: "116px" }}>
 			{!state.seriesDetails ? (
@@ -58,17 +56,6 @@ function SingleSeries() {
 							</div>
 						</div>
 					</div>
-
-					{/* last div */}
-					{/* <div className="bg-green-600 col-span-7 grid grid-cols-7">
-						<div className="bg-gray-600 col-span-1">
-						
-						</div>
-
-						<div className="bg-yellow-600 col-span-2">
-						</div>
-						<div className="bg-black col-span-4">djhdj</div>
-					</div> */}
 				</div>
 			)}
 		</div>

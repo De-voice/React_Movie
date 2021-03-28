@@ -26,12 +26,12 @@ const App = () => {
 	};
 
 	return (
-		<div className="w-full h-screen bg-white  ">
+		<div className="w-full h-screen bg-gray-800  ">
 			<ApplicationContext.Provider value={[state, dispatch, toggleWatchList]}>
 				<NavBar />
 				<Switch>
 					<Route exact path="/">
-						<Home/>
+						<Home />
 					</Route>
 					<Route exact path="/movie">
 						<Movie />

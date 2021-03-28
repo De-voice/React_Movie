@@ -49,7 +49,7 @@ function SeriesList() {
 						xmlns="http://www.w3.org/2000/svg"
 					/>
 					<span
-						className="text-blue-500 cursor-pointer"
+						className="text-blue-500 hover:text-white cursor-pointer"
 						onClick={() => toggleWatchList(item)}>
 						WatchList
 					</span>
@@ -76,7 +76,7 @@ function SeriesList() {
 						xmlns="http://www.w3.org/2000/svg"
 					/>
 					<span
-						className="text-blue-500 cursor-pointer"
+						className="text-blue-500 hover:text-white cursor-pointer"
 						onClick={() => toggleWatchList(item)}>
 						WatchList
 					</span>

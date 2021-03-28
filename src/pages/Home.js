@@ -24,7 +24,7 @@ function Home() {
 		<>
 			<div
 				style={{ paddingTop: "125px", paddingBottom: "7px" }}
-				className="bg-gray-800">
+				>
 				<h1 className="text-blue-500 mt-3 font-bold text-lg mx-2">
 					Latest Movies
 				</h1>

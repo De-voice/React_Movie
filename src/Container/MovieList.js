@@ -20,7 +20,7 @@ function MovieList() {
 
 
 
-	const { movies, isLoading, isError, hasMore } = state;
+	const { movies, isLoading, isError, hasMore,error } = state;
 
 	// custom hook that perform a network req
 	useFetch(pageNumber, end_point, actionType);
@@ -45,8 +45,19 @@ function MovieList() {
 					title={title}
 					vote_average={vote_average}
 					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}>
+					<Svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="w-5 h-5"
+						fill="blue"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						strokeLinejoin="round"
+						strokeLinecap="round"
+						strokeWidth="2"
+						d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+					/>
 					<span
-						className="text-blue-500 cursor-pointer hover:text-white"
+						className="text-blue-500  hover:text-white cursor-pointer"
 						onClick={() => toggleWatchList(item)}>
 						WatchList
 					</span>
@@ -73,7 +84,7 @@ function MovieList() {
 						d="M12 6v6m0 0v6m0-6h6m-6 0H6"
 					/>
 					<span
-						className="text-blue-500 cursor-pointer"
+						className="text-blue-500 text-xs hover:text-white cursor-pointer"
 						onClick={() => toggleWatchList(item)}>
 						WatchList
 					</span>
@@ -83,11 +94,13 @@ function MovieList() {
 	});
 
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-5 lg:grid-cols-7 gap-x-1 gap-y-1">
-			{!isLoading || !isError ? MovieListComponent : null}
-			{ isLoading && <Loader />}
-			{ isError && "Error"}
-		</div>
+		<>
+			<div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-5 lg:grid-cols-7 gap-x-1 gap-y-1">
+				{!isLoading || !isError ? MovieListComponent : null}
+				{isLoading && <Loader />}
+			</div>
+			{isError && <h1 className="text-center mt-20">{error.message}</h1>}
+		</>
 	);
 }
 

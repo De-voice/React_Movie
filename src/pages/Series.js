@@ -3,7 +3,7 @@ import SeriesList from '../Container/SeriesList'
 
 function Series() {
     return (
-			<div style={{ paddingTop: "120px" }} className="bg-gray-800">
+			<div style={{ paddingTop: "120px" }} >
 				<SeriesList />
 			</div>
 		);

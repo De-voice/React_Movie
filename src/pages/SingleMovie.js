@@ -44,8 +44,8 @@ function SingleMovie() {
 			) : (
 				<div
 					style={{ height: "86vh" }}
-					className="grid grid-cols-7  grid-flow-col  w-full bg-gray-800">
-					<div className=" col-span-2">
+					className="grid grid-cols-7  grid-flow-col  w-full bg-gray-800 text-white">
+					<div className=" col-span-5">
 						<img
 							src={`https://image.tmdb.org/t/p/w500/${state.movieDetails.poster_path}`}
 							alt=""
@@ -53,41 +53,26 @@ function SingleMovie() {
 						/>
 					</div>
 
-					<div className=" col-span-5 text-center flex flex-col mt-10 ">
-						<h1 className="text-white ">{state.movieDetails.title}</h1>
+					<div className=" col-span-2  flex flex-col mt-10 ">
+						<h1 className="text-white text-center ">{state.movieDetails.title}</h1>
 						<div className="pt-4">
-							<span>
-								<Icon className="far fa-calendar-alt" />{" "}
+							<span className="text-white">
+								<Icon className="far fa-calendar-alt text-white" />{" "}
 								{state.movieDetails.release_date}
 							</span>
-							<span className="ml-6">
-								<Icon className="far fa-clock" /> {state.movieDetails.runtime}{" "}
-								min
+							<span className="ml-6 text-white">
+								<Icon className="far fa-clock text-white" />{" "}
+								{state.movieDetails.runtime} min
 							</span>
-							<span className="ml-6">({state.movieDetails.vote_average})</span>
+							<span className="ml-6 text-white">
+								({state.movieDetails.vote_average})
+							</span>
 						</div>
 
 						<div className="mt-16 w-6/12 mx-auto">
-							<p className="text-justify text-lg">
+							<p className="text-justify text-xl text-white">
 								{state.movieDetails.overview}
 							</p>
-						</div>
-						<div className="flex  md:mt-44 justify-evenly items-baseline">
-							<button
-								className="bg-transparent  border-2 py-3 px-4 border-white
-                            ">
-								Watch Now
-							</button>
-							<Icon className="fas fa-heart fa-2x cursor-pointer ml-5" />
-
-							<a
-								href={state.movieDetails.homepage}
-								className="cursor-pointer"
-								rel="noreferrer"
-								target="_blank">
-								<Icon className=" fab fa-youtube" />
-								Trailer
-							</a>
 						</div>
 					</div>
 				</div>
